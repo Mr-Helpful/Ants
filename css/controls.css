@@ -1,0 +1,119 @@
+/*********************/
+/* Top level styling */
+/*********************/
+body {
+/*we want the options menu to be flush to the side of the page*/
+  margin: 0px;
+/*prevent the user from seeing the controls by scrolling over*/
+  overflow-x: hidden;
+}
+
+/***************************/
+/* Formatting the controls */
+/***************************/
+.menu.controls {
+/*we want to force our menu onto the right of the screen*/
+  position: fixed;
+  right: -201px;
+/*we also want it to fill the screen vertically*/
+  height: 100%;
+
+/*we specify a width as otherwise some text would be lost*/
+  width: 200px;
+
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #6B6A78;
+
+  z-index: 999;
+  background-color: rgba(237, 232, 234, 0.8);
+}
+
+.menu.controls > * {
+  font-family: 'Nunito';
+  padding: 5px;
+}
+
+.menu.controls > #title {
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #6B6A78;
+
+  background-color: #E6DDDB;
+}
+
+/******************/
+/* Button styling */
+/******************/
+.button {
+  margin:  5px;
+  padding: 5px;
+
+  border-width:  1px;
+  border-radius: 2px;
+  border-style:  solid;
+  border-color:  #6B6A78;
+
+  background-color: #EEC6AD;
+}
+
+.button:hover {
+  background-color: #EAB899;
+}
+
+/*************************/
+/* Media buttons styling */
+/*************************/
+.media {
+  margin-left: auto;
+  margin-right: auto;
+  height: 25px;
+}
+
+/*******************************/
+/* Showing and hiding the menu */
+/*******************************/
+.menu {
+  transform: translate(0px, 0);
+  transition: transform 0.5s ease;
+}
+
+.tab {
+/*we want to force the tabs onto the middle right of the page*/
+  position: fixed;
+  right: 0px;
+  top: 50%;
+  margin-top: -35px;
+
+  width: 15px;
+
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #6B6A78;
+
+  text-align: center;
+  line-height: 70px;
+
+  background: #EDE8EA;
+}
+
+#close {
+  z-index: 100;
+  opacity: 0;
+}
+
+#close:hover, #close:hover ~ .tab {
+  background: #E2DADD;
+}
+
+#hidden {
+  display: none;
+}
+
+#hidden:checked ~ #close {
+  opacity: 1;
+}
+
+#hidden:checked ~ .menu {
+  transform: translate(-200px, 0);
+}

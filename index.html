@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Alex Colby</title>
+    <link rel="stylesheet" href="fonts/fonts.css">
+    <link rel="stylesheet" href="css/controls.css">
+    <script src="modules/Vector.js"></script>
+    <script src="js/Draw.js"></script>
+    <script src="js/Control.js"></script>
+    <script type="text/javascript">
+      let S = {}
+      S.ants = {
+        minV:    10,
+        maxV:    15,
+        maxA:    10,
+        vRadius: 30,
+        vCosine: 0, // note here: vCosine = cos(x) for x is the angle of the vision cone
+        wWeight: 0.1,
+        pWeight: 1.0,
+        eWeight: 10.0,
+        edges:   true,
+        colour:  "#CCCCCC",
+        N:       100
+      }
+      S.dots = {
+        T:       50,
+        R:       1,
+        grid:    10
+      }
+      S.flow = {
+        paused:  true,
+        timed:   false,
+        avgOver: 10
+      }
+
+      function setup(){
+        let slides = ["tWeight","aWeight","fWeight","cWeight"]
+        slides.forEach(id => {
+          let elem = document.getElementById(id)
+          elem.value = S.ants[id]*10
+          elem.onchange = function(){
+            S.ants[id] = elem.value/10
+          }
+        })
+
+        let switches = ["edges"]
+        switches.forEach(id => {
+          let elem = document.getElementById(id)
+          elem.checked = S.ants[id]
+          elem.onchange = function(){
+            S.ants[id] = elem.checked
+          }
+        })
+
+        document.getElementById("play").onclick = () =>{S.flow.paused = false; step(Ants)}
+        document.getElementById("pause").onclick = () => {S.flow.paused = true}
+        document.getElementById("step").onclick = () => {step(Ants)}
+        document.getElementById("time").onclick = () => {S.flow.timed = true; step(Ants); S.flow.timed = false}
+      }
+    </script>
+    <script type="text/javascript" src="app.js" defer></script>
+  </head>
+  <body onload="init(); setup()">
+    <input id='hidden' class='menu' type='checkbox'>
+    <label id='close'  class='menu tab' for='hidden'>
+      <div>></div>
+    </label>
+    <div id='open' class='menu tab'><</div>
+    <div id='controls' class='menu controls'>
+      <div id='title'>Controls</div>
+      <table id='info'><tr>
+          <td>Target</td>
+          <td id='tbl1'>
+            <input id="tWeight" type="range" max="100">
+          </td>
+        </tr><tr>
+          <td>Align</td>
+          <td id='tbl2'>
+            <input id="aWeight" type="range" max="100">
+          </td>
+        </tr><tr>
+          <td>Avoid</td>
+          <td id='tbl3'>
+            <input id="fWeight" type="range" max="100">
+          </td>
+        </tr><tr>
+          <td>Center</td>
+          <td id='tbl3'>
+            <input id="cWeight" type="range" max="100">
+          </td>
+        </tr><tr>
+          <td>Edges</td>
+          <td id='tbl3'>
+            <input id="edges" type="checkbox" max="100">
+          </td>
+        </tr>
+      </table>
+      <div id='actn1' class='button'>Action 1</div>
+      <div id='actn2' class='button'>Action 2</div>
+      <div id='actn3' class='button'>Action 3</div>
+      <div style="display: grid; padding: 0px">
+        <img id="play"  style="grid-column: 1/ span 1" class="media button" src="icons/Play.png" ></img>
+        <img id="pause" style="grid-column: 2/ span 1" class="media button" src="icons/Pause.png"></img>
+        <img id="step"  style="grid-column: 3/ span 1" class="media button" src="icons/Skip.png" ></img>
+        <img id="time"  style="grid-column: 4/ span 1" class="media button" src="icons/Time.png" ></img>
+      </div>
+    </div>
+    <svg id="BoidGround" style="width:100vw; height:100vh"></svg>
+  </body>
+</html>
